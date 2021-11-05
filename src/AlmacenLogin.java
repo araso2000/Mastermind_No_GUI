@@ -1,5 +1,8 @@
 package MasterMind;
 
+//Clase que permite guardar los usuarios que juegan o administran el videojuego
+
+//Librerias autoimportadas necesarias para mantener tanto las excepciones como las distintas estructuras de datos
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -9,25 +12,26 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+//Implementamos la clase serializable que nos permite serializar binariamente datos
 public class AlmacenLogin implements Serializable{
     private ArrayList <Usuario> jugadores = new ArrayList(); //Creamos el ArrayList que tendrá todos los usuarios.
     private String nombre;
     
     public AlmacenLogin(){
-        this.nombre="jugadoresBinario";
+        this.nombre="jugadoresBinario";//Nombre del objeto
     }
     
-    public void setAdmin(String password){
+    public void setAdmin(String password){ //Metodo que crea un usuario administrador
         this.registrarUsuario("admin", password);
         Usuario admin = identificarUsuario("admin",password);
         admin.setAdmin();
     }
     
-    public void setSerial(String nombre){
+    public void setSerial(String nombre){//Metodo que cambia el nombre del objeto
         this.nombre=nombre;
     }
     
-    public boolean registrarUsuario(String nombre,String password){
+    public boolean registrarUsuario(String nombre,String password){ //Metodo que crea un nuevo usuario
         boolean existe=false; //Crea un booleano que nos servirá para ver si un usuario ya existe
         for(Usuario aux: this.jugadores){
             if(aux.getNombre().equals(nombre)){
@@ -40,7 +44,7 @@ public class AlmacenLogin implements Serializable{
         return(existe);
     }
     
-    public Usuario identificarUsuario(String nombre,String password){
+    public Usuario identificarUsuario(String nombre,String password){//Metodo que inicia sesion
         Usuario usuarioBuscar = null; 
         for(Usuario aux: this.jugadores){
             if(aux.getNombre().equals(nombre)){ //Si el nombre del usuario existe
